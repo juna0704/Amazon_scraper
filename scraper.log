@@ -1,0 +1,38 @@
+2025-09-02 13:53:38,083 - INFO - 📁 Using files: CSV=laptop.csv, JSON=laptop.json
+2025-09-02 13:53:38,084 - INFO - 🚀 Starting Enhanced Amazon Scraper
+2025-09-02 13:53:38,085 - INFO - ============================================================
+2025-09-02 13:53:39,109 - INFO - 📄 CSV Status: Created new CSV file: laptop.csv
+2025-09-02 13:53:39,110 - INFO - 📋 ASINs Status: Found 0 already scraped products
+2025-09-02 13:53:39,112 - INFO - 🌐 Opening Amazon India...
+2025-09-02 13:53:42,298 - INFO - ⏳ Random delay: 4.89s
+2025-09-02 13:53:47,257 - INFO - 🔍 Searching for: laptop
+2025-09-02 13:53:48,902 - INFO - ⏳ Random delay: 1.48s
+2025-09-02 13:53:54,814 - INFO - ⏳ Random delay: 4.83s
+2025-09-02 13:53:59,779 - INFO - 📦 Found 22 products on page 1
+2025-09-02 13:53:59,779 - INFO - --- Extracting Product 1 (Page 1) ---
+2025-09-02 13:53:59,865 - INFO - 💰 Current Price: 76,962
+2025-09-02 13:53:59,877 - INFO - 🏷️ Original Price (MRP): ₹1,05,398
+2025-09-02 13:53:59,879 - INFO - ⭐ Rating: 4.0
+2025-09-02 13:54:00,092 - INFO - ✓ ASIN: B0CRKXDX83
+2025-09-02 13:54:00,092 - INFO - ✓ Title: Dell G-series-15-5530-laptop - 15.6-inch FHD, Inte...
+2025-09-02 13:54:00,092 - INFO - ✓ Price: 76,962
+2025-09-02 13:54:00,093 - INFO - ✅ [200] Saved ASIN B0CRKXDX83 to CSV
+2025-09-02 13:54:00,093 - INFO - ⏳ Random delay: 3.02s
+2025-09-02 13:54:03,117 - INFO - --- Extracting Product 2 (Page 1) ---
+2025-09-02 13:54:03,256 - INFO - 💰 Current Price: 40,990
+2025-09-02 13:54:03,267 - INFO - 🏷️ Original Price (MRP): ₹54,479
+2025-09-02 13:54:03,268 - INFO - ⭐ Rating: 3.8
+2025-09-02 13:54:03,365 - INFO - ✓ ASIN: B0FG2RJ9NC
+2025-09-02 13:54:03,365 - INFO - ✓ Title: Dell 15 13th Gen Thin & Light Laptop, Intel Core i...
+2025-09-02 13:54:03,365 - INFO - ✓ Price: 40,990
+2025-09-02 13:54:03,365 - INFO - ✅ [200] Saved ASIN B0FG2RJ9NC to CSV
+2025-09-02 13:54:03,365 - INFO - ⏳ Random delay: 2.85s
+2025-09-02 13:54:06,223 - INFO - --- Extracting Product 3 (Page 1) ---
+2025-09-02 13:54:06,274 - INFO - 💰 Current Price: 30,800
+2025-09-02 13:54:06,283 - INFO - 🏷️ Original Price (MRP): ₹46,990
+2025-09-02 13:54:06,284 - INFO - ⭐ Rating: 3.6
+2025-09-02 13:54:06,386 - INFO - ✓ ASIN: B0D3HG5CMG
+2025-09-02 13:54:06,387 - INFO - ✓ Title: HP 15, AMD Ryzen 3 7320U (8GB LPDDR5, 512GB SSD) F...
+2025-09-02 13:54:06,387 - INFO - ✓ Price: 30,800
+2025-09-02 13:54:06,387 - INFO - ✅ [200] Saved ASIN B0D3HG5CMG to CSV
+2025-09-02 13:54:06,387 - INFO - ⏳ Random delay: 3.34s
