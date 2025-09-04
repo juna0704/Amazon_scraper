@@ -1,0 +1,37 @@
+{
+  "name": "amazon_scraper",
+  "version": "1.0.0",
+  "description": "Amazon Product Scraper",
+  "homepage": "https://github.com/juna0704/Amazon_scraper#readme",
+  "bugs": {
+    "url": "https://github.com/juna0704/Amazon_scraper/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juna0704/Amazon_scraper.git"
+  },
+  "license": "MIT",
+  "author": "Junaid Ali Khan",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
+    "seed": "node scripts/seed.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.0"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "nodemon": "^3.1.10"
+  }
+}
