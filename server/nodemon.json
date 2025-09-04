@@ -1,0 +1,3 @@
+{
+  "ignore": ["*.csv", "*.json", "server/scripts/*.csv", "server/scripts/*.json"]
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Scraping Jobs</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      input,
+      button {
+        margin: 5px;
+        padding: 8px;
+      }
+      #logs {
+        white-space: pre-wrap;
+        background: #f4f4f4;
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Start Scraping Job</h2>
+    <form id="jobForm">
+      <input type="text" id="productName" placeholder="Product name" required />
+      <input
+        type="number"
+        id="maxProducts"
+        placeholder="Max products"
+        value="5"
+        required
+      />
+      <input
+        type="number"
+        id="maxPages"
+        placeholder="Max pages"
+        value="1"
+        required
+      />
+      <button type="submit">Start Job</button>
+    </form>
+
+    <h3>Job Status</h3>
+    <div>
+      <input type="text" id="jobId" placeholder="Enter Job ID" />
+      <button id="checkStatus">Check Status</button>
+    </div>
+
+    <h3>Logs</h3>
+    <div id="logs"></div>
+
+    <script>
+      const API_URL = "http://localhost:5000/api/jobs"; // adjust if needed
+
+      document
+        .getElementById("jobForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const productName = document.getElementById("productName").value;
+          const maxProducts = document.getElementById("maxProducts").value;
+          const maxPages = document.getElementById("maxPages").value;
+
+          const res = await fetch(`${API_URL}/start`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productName, maxProducts, maxPages }),
+          });
+
+          const data = await res.json();
+          alert(`Job started! Job ID: ${data.jobId}`);
+          document.getElementById("jobId").value = data.jobId;
+        });
+
+      document
+        .getElementById("checkStatus")
+        .addEventListener("click", async () => {
+          const jobId = document.getElementById("jobId").value;
+          if (!jobId) return alert("Enter a job ID!");
+
+          const res = await fetch(`${API_URL}/${jobId}`);
+          const job = await res.json();
+
+          document.getElementById("logs").textContent = JSON.stringify(
+            job,
+            null,
+            2
+          );
+        });
+    </script>
+  </body>
+</html>
