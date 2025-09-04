@@ -1,6 +1,9 @@
 import express from "express";
-import { getAllJobs } from "../controller/jobController.js";
 
 const router = express.Router();
 
-router.get("/", getAllJobs);
+router.get("/", (req, res) => {
+  console.log(res.status(200).json({ message: "this is main route" }));
+});
+
+export default router;
