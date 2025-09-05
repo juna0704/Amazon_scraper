@@ -3,3 +3,4 @@ node_modules/
 package-lock.json
 server/scripts/venv
 server/output_files
+client/node_modules
