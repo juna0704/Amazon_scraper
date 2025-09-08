@@ -20,7 +20,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware
-app.use(cors({ origin: "http://localhost:3000" })); // frontend origin
+app.use(cors({ origin: "http://localhost:5173", credentials: true })); // frontend origin
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 app.use(express.static(path.join(__dirname, "public")));

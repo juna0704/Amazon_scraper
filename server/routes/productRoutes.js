@@ -6,7 +6,10 @@ import {
 
 const router = express.Router();
 
-router.get("/:jobId/products", getProductsByJob);
+// All products (optional, if needed)
 router.get("/", getAllProducts);
+
+// Products by jobId
+router.get("/:jobId/products", getProductsByJob);
 
 export default router;
