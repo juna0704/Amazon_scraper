@@ -5,17 +5,22 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [token, setToken] = useState(null);
 
-  // Load user from localStorage on first render
+  // Load token & user safely
   useEffect(() => {
-    if (token) {
-      const savedUser = JSON.parse(localStorage.getItem("user"));
-      if (savedUser) setUser(savedUser);
-    }
-  }, [token]);
+    try {
+      const savedToken = localStorage.getItem("token");
+      const savedUser = localStorage.getItem("user");
 
-  //Register
+      if (savedToken) setToken(savedToken);
+      if (savedUser) setUser(JSON.parse(savedUser));
+    } catch (err) {
+      console.error("Error reading from localStorage:", err);
+    }
+  }, []);
+
+  // Register
   const register = async (name, email, password) => {
     try {
       const res = await axios.post("http://localhost:5000/api/auth/register", {
@@ -29,7 +34,7 @@ export function AuthProvider({ children }) {
       localStorage.setItem("user", JSON.stringify(res.data.user));
       localStorage.setItem("token", res.data.token);
     } catch (err) {
-      console.log("Register error: ", err);
+      console.log("Register error:", err);
       throw err;
     }
   };
@@ -47,12 +52,11 @@ export function AuthProvider({ children }) {
       localStorage.setItem("user", JSON.stringify(res.data.user));
       localStorage.setItem("token", res.data.token);
     } catch (err) {
-      console.log("Login error: ", err);
+      console.log("Login error:", err);
       throw err;
     }
   };
 
-  // Logout
   const logout = () => {
     setUser(null);
     setToken(null);

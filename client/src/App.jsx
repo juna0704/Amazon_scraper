@@ -1,21 +1,41 @@
-// App.jsx
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Dashboard from "./components/Dashboard";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider, AuthContext } from "./context/AuthContext";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 import StartJobPage from "./pages/StartJobPage";
-import "./index.css";
+
+function PrivateRoute({ children }) {
+  const { token } = React.useContext(AuthContext);
+  return token ? children : <Navigate to="/login" />;
+}
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <main className="p-4">
+    <AuthProvider>
+      <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/start-job" element={<StartJobPage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/scrape" element={<StartJobPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
-      </main>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 
