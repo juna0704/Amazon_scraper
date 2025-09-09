@@ -1,14 +1,15 @@
-// components/Navbar.jsx
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function Navbar() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { logout } = useContext(AuthContext);
 
   const navItems = [
-    { name: "Dashboard", path: "/" },
-    { name: "Start Job", path: "/start-job" },
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Start Job", path: "/scrape" },
   ];
 
   return (
@@ -19,7 +20,7 @@ function Navbar() {
           <div className="flex-shrink-0 font-bold text-xl">ScraperApp</div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-6">
+          <div className="hidden md:flex space-x-6 items-center">
             {navItems.map((item) => (
               <Link
                 key={item.path}
@@ -33,6 +34,14 @@ function Navbar() {
                 {item.name}
               </Link>
             ))}
+
+            {/* Logout button */}
+            <button
+              onClick={logout}
+              className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >
+              Logout
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -42,7 +51,6 @@ function Navbar() {
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700"
             >
               <span className="sr-only">Open main menu</span>
-              {/* Icon */}
               {menuOpen ? (
                 <svg
                   className="h-6 w-6"
@@ -96,6 +104,15 @@ function Navbar() {
               {item.name}
             </Link>
           ))}
+          <button
+            onClick={() => {
+              logout();
+              setMenuOpen(false);
+            }}
+            className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >
+            Logout
+          </button>
         </div>
       )}
     </nav>
