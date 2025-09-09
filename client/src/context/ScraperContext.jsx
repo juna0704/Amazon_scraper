@@ -49,11 +49,16 @@ export function ScraperProvider({ children }) {
   };
 
   // Start a new job
-  const startJob = async () => {
+  const startJob = async (productName, maxProducts = 5, maxPages = 1) => {
     try {
       setIsLoading(true);
-      const res = await axiosInstance.post("/jobs/start");
-      await fetchJobs(); // refresh job list after starting
+      const res = await axiosInstance.post("/jobs/start", {
+        productName,
+        maxProducts,
+        maxPages,
+      });
+      // refresh jobs after start
+      await fetchJobs();
       return res.data;
     } catch (err) {
       console.error("Error starting job:", err);

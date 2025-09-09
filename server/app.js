@@ -10,6 +10,7 @@ import authMiddleware from "./middlewares/authMiddleware.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import statsRoutes from "./routes/statsRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import jobsWebhookRoutes from "./routes/jobsWebhookRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", authMiddleware, jobRoutes);
+app.use("/api/jobs/webhook", jobsWebhookRoutes);
 app.use("/api/products", authMiddleware, productRoutes);
 app.use("/api/stats", authMiddleware, statsRoutes);
 

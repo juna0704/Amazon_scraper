@@ -23,7 +23,8 @@ DEFAULT_CSV_FILE = 'amazon_products.csv'
 DEFAULT_JSON_FILE = 'amazon_products.json'
 PROGRESS_FILE = 'scraper_progress.json'
 LOG_FILE = 'scraper.log'
-API_BASE_URL = 'http://localhost:5000/api'
+API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:5000/api")
+SCRAPER_SECRET = os.getenv("SCRAPER_SECRET", "")
 
 class StatusCode(Enum):
     SUCCESS = 200
@@ -128,7 +129,7 @@ class EnhancedAmazonScraper:
             
             if error:
                 data['error'] = error
-                
+            headers = {'x-scraper-secret': SCRAPER_SECRET} if SCRAPER_SECRET else {}    
             response = requests.post(
                 f"{API_BASE_URL}/jobs/{self.job_id}/status",
                 json=data,
@@ -152,7 +153,7 @@ class EnhancedAmazonScraper:
                 },
                 'timestamp': datetime.now().isoformat()
             }
-            
+            headers = {'x-scraper-secret': SCRAPER_SECRET} if SCRAPER_SECRET else {}
             response = requests.post(
                 f"{API_BASE_URL}/jobs/{self.job_id}/progress",
                 json=data,
@@ -171,7 +172,7 @@ class EnhancedAmazonScraper:
                 'log': log_message,
                 'timestamp': datetime.now().isoformat()
             }
-            
+            headers = {'x-scraper-secret': SCRAPER_SECRET} if SCRAPER_SECRET else {}
             response = requests.post(
                 f"{API_BASE_URL}/jobs/{self.job_id}/logs",
                 json=data,
