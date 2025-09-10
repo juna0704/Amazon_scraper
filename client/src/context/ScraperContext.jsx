@@ -88,6 +88,7 @@ export function ScraperProvider({ children }) {
       const res = await axiosInstance.get(
         `/products?page=${page}&limit=${limit}`
       );
+      console.log(res);
       setProducts(res.data.products || []);
     } catch (err) {
       console.error("Error fetching products:", err);

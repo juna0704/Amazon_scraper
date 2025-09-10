@@ -68,7 +68,7 @@ const ProductsPage = () => {
 
                 {/* Title (clickable) */}
                 <a
-                  href={product.product_url}
+                  href={product.productUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-lg font-semibold text-blue-600 hover:underline mb-2 block"
@@ -112,9 +112,7 @@ const ProductsPage = () => {
                     </div>
                     <div>
                       <span className="font-medium">Reviews:</span>
-                      <span className="ml-1">
-                        {product.review_count || "0"}
-                      </span>
+                      <span className="ml-1">{product.reviewCount || "0"}</span>
                     </div>
                   </div>
 
