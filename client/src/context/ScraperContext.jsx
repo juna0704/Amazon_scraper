@@ -25,6 +25,7 @@ export function ScraperProvider({ children }) {
     try {
       setIsLoading(true);
       const res = await axiosInstance.get("/jobs");
+      console.log(res);
       setJobs(res.data);
     } catch (error) {
       console.log("Error fetching jobs: ", error);
@@ -82,13 +83,13 @@ export function ScraperProvider({ children }) {
   //   }
   // };
   // ScraperContext.js
-  const fetchProducts = async (page = 1, limit = 50) => {
+  const fetchProducts = async (page = 1, limit = 100) => {
     try {
       setIsLoading(true);
       const res = await axiosInstance.get(
         `/products?page=${page}&limit=${limit}`
       );
-      console.log(res);
+
       setProducts(res.data.products || []);
     } catch (err) {
       console.error("Error fetching products:", err);

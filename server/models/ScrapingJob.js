@@ -4,8 +4,8 @@ const ScrapingJobSchema = new mongoose.Schema(
   {
     jobId: { type: String, required: true, unique: true, index: true },
     productName: { type: String, required: true },
-    maxProduct: { type: Number, default: 5 },
-    maxPages: { type: Number, default: 1 },
+    maxProduct: { type: Number },
+    maxPages: { type: Number },
     status: {
       type: String,
       enum: ["pending", "running", "completed", "failed", "stopped"],
@@ -28,7 +28,7 @@ const ScrapingJobSchema = new mongoose.Schema(
     error: String,
     completedAt: { type: Date, index: true },
   },
-  { timeStamps: true }
+  { timestamps: true }
 );
 
 const ScrapingJob = new mongoose.model("ScrapingJob", ScrapingJobSchema);

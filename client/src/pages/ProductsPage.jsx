@@ -7,20 +7,12 @@ const ProductsPage = () => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetchProducts(page, 20); // fetch 20 products per page
+    fetchProducts(page, 9);
   }, [page]);
 
-  // Helper function to format price
   const formatPrice = (price) => {
     if (!price) return "N/A";
-    // If price already has ₹ symbol, return as is, otherwise add it
     return price.includes("₹") ? price : `₹${price}`;
-  };
-
-  // Helper function to format numbers (remove commas for proper display)
-  const formatNumber = (num) => {
-    if (!num) return "0";
-    return num.toString();
   };
 
   if (error) {
@@ -47,41 +39,42 @@ const ProductsPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
               <div
-                key={product.asin || product._id}
-                className="border rounded-lg shadow-sm p-4 flex flex-col hover:shadow-md transition-shadow duration-200 bg-white"
+                key={product.asin}
+                className="border rounded-lg shadow-sm p-4 flex flex-col hover:shadow-md transition-shadow bg-white"
               >
                 {/* Image */}
-                {product.image_url && (
-                  <div className="w-full h-40 mb-3 flex items-center justify-center bg-gray-50 rounded">
+                {product.imageUrl && (
+                  <div className="w-full h-48 mb-3 flex items-center justify-center bg-gray-50 rounded overflow-hidden">
                     <img
-                      src={product.image_url}
+                      src={product.imageUrl}
                       alt={product.title}
-                      className="max-w-full max-h-full object-contain"
+                      className="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-200"
                       onError={(e) => {
-                        e.target.src =
-                          "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xMiA5VjEzTTEyIDE3SDE2TTE2IDlIMTJNOCAxM0g4LjAxTTggMTdIOC4wMU04IDlIOC4wMSIgc3Ryb2tlPSIjOUI5QkE2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K";
+                        e.target.src = "/placeholder-image.png";
                         e.target.alt = "Image not available";
                       }}
                     />
                   </div>
                 )}
 
-                {/* Title (clickable) */}
-                <a
-                  href={product.productUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-lg font-semibold text-blue-600 hover:underline mb-2 block"
-                  title={product.title} // tooltip shows full title
-                  style={{
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                  }}
-                >
-                  {product.title}
-                </a>
+                {/* Title */}
+                <h3 className="mb-2">
+                  <a
+                    href={product.productUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg font-semibold text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
+                    title={product.title}
+                    style={{
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {product.title}
+                  </a>
+                </h3>
 
                 <div className="flex-grow">
                   {/* ASIN */}
@@ -94,9 +87,9 @@ const ProductsPage = () => {
                     <span className="text-lg font-bold text-green-600">
                       {formatPrice(product.price)}
                     </span>
-                    {product.original_price && (
+                    {product.originalPrice && (
                       <span className="line-through ml-2 text-gray-500 text-sm">
-                        {formatPrice(product.original_price)}
+                        {formatPrice(product.originalPrice)}
                       </span>
                     )}
                   </div>
@@ -117,15 +110,15 @@ const ProductsPage = () => {
                   </div>
 
                   {/* Delivery Info */}
-                  {product.delivery_info && (
+                  {product.deliveryInfo && (
                     <p className="text-sm text-gray-600 mb-2">
                       <span className="font-medium">Delivery:</span>{" "}
-                      {product.delivery_info}
+                      {product.deliveryInfo}
                     </p>
                   )}
 
-                  {/* Best Seller Badge */}
-                  {product.best_seller === "YES" && (
+                  {/* Best Seller */}
+                  {product.bestSeller === "true" && (
                     <div className="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
                       🌟 Best Seller
                     </div>
@@ -140,21 +133,19 @@ const ProductsPage = () => {
             <button
               onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
               disabled={page === 1 || isLoading}
-              className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
               Previous
             </button>
 
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-600">
-                Page {page} {totalPages ? `of ${totalPages}` : ""}
-              </span>
-            </div>
+            <span className="text-gray-600">
+              Page {page} {totalPages ? `of ${totalPages}` : ""}
+            </span>
 
             <button
               onClick={() => setPage((prev) => prev + 1)}
               disabled={(totalPages ? page >= totalPages : false) || isLoading}
-              className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
               Next
             </button>
@@ -163,14 +154,6 @@ const ProductsPage = () => {
       ) : (
         <div className="text-center py-8">
           <p className="text-gray-500 text-lg">No products found.</p>
-          {page > 1 && (
-            <button
-              onClick={() => setPage(1)}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Go to first page
-            </button>
-          )}
         </div>
       )}
     </div>
