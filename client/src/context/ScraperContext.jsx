@@ -69,13 +69,29 @@ export function ScraperProvider({ children }) {
   };
 
   // Fetch products for a job
-  const fetchProductsByJobId = async (jobId) => {
+  // const fetchProductsByJobId = async (jobId) => {
+  //   try {
+  //     setIsLoading(true);
+  //     const res = await axiosInstance.get(`/products/${jobId}/products`);
+  //     console.log("Products API response:", res.data); // 👈 check this
+  //     setProducts(res.data);
+  //   } catch (err) {
+  //     console.error("Error fetching products:", err);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+  // ScraperContext.js
+  const fetchProducts = async (page = 1, limit = 50) => {
     try {
       setIsLoading(true);
-      const res = await axiosInstance.get(`/products/${jobId}/products`);
-      setProducts(res.data);
+      const res = await axiosInstance.get(
+        `/products?page=${page}&limit=${limit}`
+      );
+      setProducts(res.data.products || []);
     } catch (err) {
       console.error("Error fetching products:", err);
+      setProducts([]);
     } finally {
       setIsLoading(false);
     }
@@ -106,7 +122,7 @@ export function ScraperProvider({ children }) {
         fetchJobs,
         fetchJobById,
         startJob,
-        fetchProductsByJobId,
+        fetchProducts,
         fetchStats,
       }}
     >

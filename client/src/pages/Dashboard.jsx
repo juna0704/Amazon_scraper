@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import {
-  BarChart,
-  Bar,
+  Legend,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -23,12 +22,14 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const { token } = useContext(AuthContext);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const navigate = useNavigate();
 
   const fetchStats = async () => {
     try {
@@ -54,8 +55,19 @@ const Dashboard = () => {
     setTimeout(() => setRefreshing(false), 1000);
   };
 
-  const StatCard = ({ title, value, icon: Icon, color, trend, trendValue }) => (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
+  const StatCard = ({
+    title,
+    value,
+    icon: Icon,
+    color,
+    trend,
+    trendValue,
+    onClick,
+  }) => (
+    <div
+      onClick={onClick}
+      className="cursor-pointer bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow"
+    >
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
@@ -133,6 +145,7 @@ const Dashboard = () => {
             color="bg-blue-500"
             trend="up"
             trendValue={12}
+            onClick={() => navigate("/jobs")}
           />
           <StatCard
             title="Total Products"
@@ -141,12 +154,14 @@ const Dashboard = () => {
             color="bg-green-500"
             trend="up"
             trendValue={8}
+            onClick={() => navigate("/products")}
           />
           <StatCard
             title="Running Jobs"
             value={stats?.runningJobs}
             icon={Play}
             color="bg-orange-500"
+            onClick={() => navigate("/running-jobs")}
           />
           <StatCard
             title="Completed Jobs"
@@ -202,15 +217,15 @@ const Dashboard = () => {
                   cy="50%"
                   outerRadius={100}
                   dataKey="value"
-                  label={({ name, percent }) =>
-                    `${name} ${(percent * 100).toFixed(0)}%`
-                  }
+                  labelLine={false}
+                  label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
                 >
                   {jobStatusData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
                 <Tooltip />
+                <Legend verticalAlign="bottom" height={36} />
               </PieChart>
             </ResponsiveContainer>
           </div>

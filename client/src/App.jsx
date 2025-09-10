@@ -5,12 +5,17 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { AuthContext, AuthProvider } from "./context/AuthContext";
+import { AuthContext } from "./context/AuthContext";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import StartJobPage from "./pages/StartJobPage";
 import Navbar from "./components/Navbar";
+
+// ✅ New pages
+import JobsPage from "./pages/JobsPage";
+import ProductsPage from "./pages/ProductsPage";
+import RunningJobsPage from "./pages/RunningJobsPage";
 
 // PrivateRoute component
 function PrivateRoute({ children }) {
@@ -44,6 +49,40 @@ function AppContent() {
           element={
             <PrivateRoute>
               <StartJobPage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* ✅ New routes for stats pages */}
+        <Route
+          path="/jobs"
+          element={
+            <PrivateRoute>
+              <JobsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <PrivateRoute>
+              <ProductsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/running-jobs"
+          element={
+            <PrivateRoute>
+              <RunningJobsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/products/:jobId"
+          element={
+            <PrivateRoute>
+              <ProductsPage />
             </PrivateRoute>
           }
         />
