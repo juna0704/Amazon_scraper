@@ -36,3 +36,18 @@ This project is built with scalability, performance, and security in mind — us
 ```bash
 git clone https://github.com/juna0704/Amazon_scraper.git
 cd Amazon_scraper
+
+📂 Project Structure
+amazon_scraper/
+├── server/
+│   ├── server.js          # Entry point
+│   ├── routes/            # Express routes
+│   ├── controllers/       # Business logic
+│   ├── models/            # Mongoose schemas
+│   ├── middleware/        # Auth, rate-limit, error handling
+│   └── utils/             # Helper functions (scraping, etc.)
+├── scripts/
+│   └── seed.js            # Seed data script
+├── package.json
+└── README.md
+
